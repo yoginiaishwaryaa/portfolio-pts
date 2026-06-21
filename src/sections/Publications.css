@@ -1,0 +1,187 @@
+/* ══ SECTION ══ */
+.pub-section {
+  padding: calc(var(--nav-h) + 48px) 72px 72px;
+  background: var(--cream);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 52px;
+  align-items: start;
+}
+
+/* ── Header ── */
+.pub-header {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+}
+.pub-header.hdr-in { opacity: 1; transform: translateX(0); }
+
+.pub-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.05; letter-spacing: -1px; margin-bottom: 12px;
+}
+.pub-title em { color: var(--highlight); font-style: italic; }
+.pub-sub { font-size: 13px; color: var(--muted); line-height: 1.8; }
+
+/* ── Cards: vertical stack ── */
+.pub-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;       /* generous gap so hover drop-down never overlaps */
+}
+
+/* ══ STACK WRAPPER ══ */
+.pub-stack {
+  position: relative;
+  perspective: 1000px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.55s ease var(--delay, 0ms),
+    transform 0.55s ease var(--delay, 0ms);
+}
+.pub-stack.stack-in { opacity: 1; transform: translateY(0); }
+
+/* ══ BACK CARD — peeking behind, reveals on hover ══ */
+.pub-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  z-index: 0;
+  transform: translateX(14px) translateY(8px);
+  opacity: 0.7;
+  transition:
+    transform 0.65s cubic-bezier(0.34, 1.08, 0.64, 1),
+    opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px 24px 22px;
+}
+.pub-stack:hover .pub-back {
+  transform: translateX(24px) translateY(14px);
+  opacity: 1;
+}
+
+.pub-back-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.22s ease 0.28s, transform 0.22s ease 0.28s;
+}
+.pub-stack:hover .pub-back-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+.pub-back-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(28,25,23,0.45);
+}
+.pub-back-cta {
+  display: inline-flex; align-items: center;
+  font-size: 12px; font-weight: 700; color: var(--charcoal);
+  padding: 7px 16px;
+  background: rgba(28,25,23,0.12);
+  border-radius: 100px;
+  text-decoration: none;
+  width: fit-content;
+  transition: background 0.2s;
+}
+.pub-back-cta:hover { background: rgba(28,25,23,0.22); }
+
+/* ══ FRONT CARD — 3-D Y-axis rotate on hover ══ */
+.pub-front {
+  position: relative;
+  z-index: 1;
+  display: block;
+  border-radius: 20px;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  cursor: none;
+  transform-style: preserve-3d;
+  transform: translateX(0) rotateY(0deg);
+  box-shadow: 0 4px 20px rgba(28,25,23,0.07);
+  transition:
+    transform 0.65s cubic-bezier(0.34, 1.08, 0.64, 1),
+    box-shadow 0.4s ease;
+  overflow: hidden;
+}
+.pub-stack:hover .pub-front {
+  transform: translateX(-10px) rotateY(-9deg);
+  box-shadow: 0 16px 48px rgba(28,25,23,0.13);
+}
+
+/* Top accent band */
+.pub-front-band {
+  height: 5px;
+  border-radius: 20px 20px 0 0;
+}
+
+/* Always-visible body */
+.pub-front-body {
+  padding: 20px 22px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pub-front-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pub-front-num  { font-size: 9px; color: var(--muted); font-family: monospace; opacity: 0.4; }
+.pub-front-year { font-size: 9px; color: var(--highlight); font-weight: 700; letter-spacing: 0.08em; }
+
+.pub-front-title {
+  font-family: var(--font-display);
+  font-size: 16px; letter-spacing: -0.3px; line-height: 1.25; color: var(--charcoal);
+}
+.pub-front-desc {
+  font-size: 12px; color: var(--muted); line-height: 1.7;
+}
+.pub-front-journal {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--highlight);
+  padding-bottom: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+/* ── "Read more" slides up from bottom on hover ── */
+.pub-read-more {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pub-stack:hover .pub-read-more {
+  max-height: 60px;
+}
+.pub-read-more-inner {
+  padding: 0 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.22s ease 0.14s, transform 0.22s ease 0.14s;
+}
+.pub-stack:hover .pub-read-more-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+.pub-rm-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--highlight); flex-shrink: 0;
+}
+.pub-rm-text {
+  font-size: 12px; font-weight: 600; color: var(--highlight);
+  letter-spacing: 0.04em;
+}

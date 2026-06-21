@@ -1,0 +1,166 @@
+/* ── Section ── */
+.skills-section {
+  min-height: 100vh;
+  background: var(--charcoal);
+  color: var(--cream);
+  padding: calc(var(--nav-h) + 52px) 72px 80px;
+}
+
+/* ── Header ── */
+.skills-header {
+  max-width: 460px;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.skills-header.hdr-in { opacity: 1; transform: translateY(0); }
+.skills-header .section-eyebrow { color: rgba(250,248,245,0.4); }
+.skills-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.5vw, 48px);
+  line-height: 1.1; letter-spacing: -1px; margin-bottom: 12px;
+}
+.skills-title em { color: var(--accent); }
+.skills-sub { font-size: 13px; color: rgba(250,248,245,0.38); line-height: 1.8; }
+
+/* ── Diagram wrapper ── */
+.skills-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+/* ══ ROOT NODE ══ */
+.skills-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--charcoal);
+  box-shadow: 0 0 0 12px rgba(250,248,245,0.07), 0 0 0 24px rgba(250,248,245,0.03);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.5, 0.64, 1);
+  z-index: 2;
+}
+.skills-root.node-in { opacity: 1; transform: scale(1); }
+.skills-root-name {
+  font-family: var(--font-display);
+  font-size: 16px; font-weight: 500; color: var(--charcoal);
+}
+.skills-root-role {
+  font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); text-align: center; line-height: 1.4;
+  margin-top: 3px; max-width: 80px;
+}
+
+/* ══ TRUNK — vertical line root → crossbar ══ */
+.skills-trunk {
+  width: 2px;
+  height: 40px;
+  background: rgba(250,248,245,0.2);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.4s ease;
+}
+.skills-trunk.line-in { transform: scaleY(1); }
+
+/* ══ CROSSBAR — horizontal line spanning all columns ══ */
+.skills-crossbar {
+  width: calc(100% - 0px);
+  height: 2px;
+  background: linear-gradient(to right,
+    #C9B8E8, #A8D8B8, #F0C8A0, #F0A8B8, #A8C8F0, #E8D8A0
+  );
+  transform-origin: center;
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.05s;
+  margin-bottom: 0;
+}
+.skills-crossbar.line-in { transform: scaleX(1); }
+
+/* ══ COLUMNS ══ */
+.skills-cols {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  width: 100%;
+  padding-top: 0;
+}
+
+.skills-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ══ BRANCH — vertical from crossbar to category node ══ */
+.skills-branch {
+  width: 2px;
+  height: 32px;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.35s ease;
+}
+.skills-branch.line-in { transform: scaleY(1); }
+
+/* ══ CATEGORY NODE ══ */
+.skills-cat-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 8px 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--cc, rgba(255,255,255,0.1));
+  background: rgba(255,255,255,0.05);
+  width: 100%;
+  opacity: 0;
+  transform: translateY(10px) scale(0.85);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+  margin-bottom: 8px;
+}
+.skills-cat-node.node-in { opacity: 1; transform: translateY(0) scale(1); }
+.skills-cat-icon {
+  font-size: 16px; color: var(--cc, white); line-height: 1;
+}
+.skills-cat-name {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--cream); text-align: center;
+}
+
+/* ══ SUB-LINE from category → chips ══ */
+.skills-sub-line {
+  width: 2px; height: 16px;
+  transform-origin: top; transform: scaleY(0);
+  transition: transform 0.3s ease;
+  margin-bottom: 8px;
+}
+.skills-sub-line.line-in { transform: scaleY(1); }
+
+/* ══ SKILL CHIPS ══ */
+.skills-chips {
+  display: flex; flex-direction: column; gap: 5px; width: 100%;
+}
+.skills-chip {
+  padding: 5px 8px; border-radius: 5px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  font-size: 10px; color: rgba(250,248,245,0.6);
+  text-align: center;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.28s ease, transform 0.28s ease, background 0.2s, color 0.2s;
+}
+.skills-chip.chip-in { opacity: 1; transform: translateY(0); }
+.skills-chip:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--cc, rgba(255,255,255,0.2));
+  color: var(--cream);
+}

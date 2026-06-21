@@ -1,0 +1,133 @@
+.contact-section {
+  min-height: 100vh;
+  background: var(--blush);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+
+/* ── Stamps ── */
+.contact-stamp {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.stamp-permanent {
+  opacity: 0.55;
+  animation: stamp-settle 0.8s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+}
+
+.stamp-hover {
+  animation: stamp-drop 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+
+@keyframes stamp-settle {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  to   { opacity: 0.55; }
+}
+
+@keyframes stamp-drop {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(var(--r, 0deg)); }
+  to   { opacity: 1; }
+}
+
+.stamp-frame {
+  width: 140px;
+  position: relative;
+  background: white;
+  padding: 8px 8px 6px;
+  border-radius: 3px;
+  box-shadow: 0 3px 14px rgba(28,25,23,0.18), 0 0 0 1px rgba(28,25,23,0.08);
+  outline: 2px dashed rgba(28,25,23,0.18);
+  outline-offset: 4px;
+}
+
+.stamp-img {
+  width: 100%; height: 96px;
+  border-radius: 2px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 7px;
+}
+.stamp-img-label {
+  font-size: 30px; font-weight: 800;
+  font-family: var(--font-display);
+  color: rgba(28,25,23,0.3); letter-spacing: -1px;
+}
+
+.stamp-caption {
+  display: flex; justify-content: space-between;
+  align-items: baseline; padding: 0 3px 3px;
+}
+.stamp-name {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--charcoal); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: 95px;
+  font-family: var(--font-body);
+}
+.stamp-year { font-size: 8px; color: var(--muted); font-family: monospace; }
+
+.stamp-postmark {
+  position: absolute; top: -14px; right: -18px;
+  opacity: 0.8; transform: rotate(18deg);
+}
+
+/* ── Center content ── */
+.contact-inner {
+  position: relative; z-index: 2;
+  text-align: center; padding: 80px 40px;
+}
+
+.contact-eyebrow { color: var(--muted); }
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 96px);
+  line-height: 1.0; letter-spacing: -3px;
+  margin: 12px 0 24px; color: var(--charcoal);
+}
+.contact-title em { color: var(--highlight); font-style: italic; }
+
+.contact-sub {
+  font-size: 15px; color: var(--muted);
+  line-height: 1.8; margin-bottom: 40px;
+}
+
+.contact-email-row { margin-bottom: 24px; }
+.contact-email-btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 14px 24px;
+  background: var(--cream); border: 1px solid var(--border);
+  border-radius: 100px; font-size: 14px;
+  font-family: var(--font-body); color: var(--charcoal);
+  transition: transform 0.2s, box-shadow 0.2s; cursor: none;
+}
+.contact-email-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(28,25,23,0.1); }
+.contact-copy-icon {
+  font-size: 12px; color: var(--muted);
+  padding: 3px 9px; background: var(--warm-white);
+  border-radius: 100px; border: 1px solid var(--border);
+}
+
+.contact-links { display: flex; gap: 12px; justify-content: center; }
+.contact-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px; background: var(--charcoal);
+  color: var(--cream); border-radius: 100px;
+  font-size: 13px; font-weight: 500;
+  transition: transform 0.2s, background 0.2s;
+}
+.contact-link:hover { transform: translateY(-2px); background: var(--highlight); }
+
+.contact-hint {
+  position: absolute; bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+  white-space: nowrap; z-index: 2; opacity: 0.7;
+}
