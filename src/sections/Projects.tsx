@@ -4,41 +4,54 @@ import './Projects.css'
 
 type Project = typeof PROJECTS[number]
 
-// Add your actual video URLs here when ready; null = show gradient placeholder
-const PROJECT_VIDEOS: Record<string, string | null> = {
-  'script-match':     null,
-  'handheld-console': null,
-  'ecg-detection':    null,
-  'multiplayer-card': null,
-  'study-buddy':      null,
-  'thermal-fruit':    null,
-  'handes-control':   null,
+const PUBLIC_BASE = import.meta.env.BASE_URL || '/'
+
+type MediaItem = { type: 'video' | 'image'; src: string }
+const PROJECT_MEDIA: Record<string, MediaItem | null> = {
+  'script-match':     { type: 'image', src: `${PUBLIC_BASE}script_match.jpg` },
+  'handheld-console': { type: 'video', src: `${PUBLIC_BASE}handheld_game_console.mp4` },
+  'ecg-detection':    { type: 'image', src: `${PUBLIC_BASE}archi_CI.png` },
+  'multiplayer-card': { type: 'video', src: `${PUBLIC_BASE}multiplayer_card_clash.mp4` },
+  'study-buddy':      { type: 'video', src: `${PUBLIC_BASE}study_buddy.mp4` },
+  'thermal-fruit':    { type: 'image', src: `${PUBLIC_BASE}thermal_fruit_image_dataset.jpg` },
+  'handes-control':   { type: 'video', src: `${PUBLIC_BASE}handes_control.mp4` },
+  'shelly':           { type: 'video', src: `${PUBLIC_BASE}shelly.mp4` },
+  'Secure-Quiz-platform': { type: 'image', src: `${PUBLIC_BASE}secure_quiz.jpg` },
 }
 
 function MediaPanel({ project, active }: { project: Project; active: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const src = PROJECT_VIDEOS[project.id]
+  const media = PROJECT_MEDIA[project.id]
 
   // Auto-play when card becomes active
   useEffect(() => {
     const v = videoRef.current
-    if (!v) return
+    if (!v || !media || media.type !== 'video') return
     if (active) { v.currentTime = 0; v.play().catch(() => {}) }
     else v.pause()
-  }, [active])
+  }, [active, media])
 
   return (
     <div className="fan-media" style={{ '--proj-color': project.color } as React.CSSProperties}>
-      {src ? (
-        <video
-          ref={videoRef}
-          className="fan-video"
-          src={src}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
+      {media ? (
+        media.type === 'video' ? (
+          <video
+            ref={videoRef}
+            className="fan-video"
+            src={media.src}
+            muted
+            autoPlay
+            loop
+            playsInline
+            preload="auto"
+          />
+        ) : (
+          <img
+            className="fan-image"
+            src={media.src}
+            alt={`${project.title} preview`}
+          />
+        )
       ) : (
         /* Gradient placeholder — shows project color with subtle noise */
         <div className="fan-placeholder">

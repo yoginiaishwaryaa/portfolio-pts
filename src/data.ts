@@ -89,7 +89,7 @@ export const PROJECTS = [
     emoji: '🃏',
   },
   {
-    id: 'Secure-Quiz Platform',
+    id: 'Secure-Quiz-platform',
     title: 'Secure-Quiz Platform',
     year: '2026',
     tags: ['Full-Stack', 'Security', 'Gamification'],

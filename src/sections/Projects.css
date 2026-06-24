@@ -98,10 +98,16 @@
   height: 100%;
 }
 
-.fan-video {
-  width: 100%; height: 100%;
+.fan-video,
+.fan-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.fan-image {
+  object-position: center;
 }
 
 /* Gradient placeholder */
