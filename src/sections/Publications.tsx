@@ -22,7 +22,8 @@ export default function Publications() {
         <h2 className="pub-title">Written &<br /><em>published.</em></h2>
         <p className="pub-sub">
           Peer-reviewed work on thermal imaging.<br />
-          Published in Elsevier's Data in Brief at 20.
+          Published in Elsevier's Data in Brief.<br />
+          Scopus Percentile: 76, Quartile: Q1
         </p>
       </div>
 
