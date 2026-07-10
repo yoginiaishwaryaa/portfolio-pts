@@ -5,6 +5,7 @@ import './Contact.css'
 type Stamp = {
   id: number
   title: string
+  year: string
   color: string
   x: number
   y: number
@@ -40,6 +41,7 @@ export default function Contact() {
     permRef.current = PERM_POS.map((pos, i) => ({
       id: i,
       title: PROJECTS[i % PROJECTS.length].title,
+      year: PROJECTS[i % PROJECTS.length].year,
       color: PROJECTS[i % PROJECTS.length].color,
       x: pos.xp * w,
       y: pos.yp * h,
@@ -74,7 +76,7 @@ export default function Contact() {
     const p  = PROJECTS[id % PROJECTS.length]
     setHoverStamps(prev => [
       ...prev.slice(-28),
-      { id, title: p.title, color: p.color, x, y, rot: (Math.random() - 0.5) * 28, permanent: false },
+      { id, title: p.title, year: p.year, color: p.color, x, y, rot: (Math.random() - 0.5) * 28, permanent: false },
     ])
   }, [seedPermanent])
 
@@ -113,7 +115,7 @@ export default function Contact() {
             </div>
             <div className="stamp-caption">
               <span className="stamp-name">{s.title}</span>
-              <span className="stamp-year">2024</span>
+              <span className="stamp-year">{s.year}</span>
             </div>
           </div>
           <div className="stamp-postmark">
