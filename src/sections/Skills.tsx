@@ -150,7 +150,7 @@ export default function Skills() {
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
-      { threshold: 0.08 }
+      { threshold: 0.01 }
     )
     if (sectionRef.current) obs.observe(sectionRef.current)
     return () => obs.disconnect()

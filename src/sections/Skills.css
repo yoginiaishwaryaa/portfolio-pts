@@ -7,11 +7,12 @@
   min-height: 100vh;
   background: var(--blush);
   color: var(--charcoal);
-  padding: calc(var(--nav-h) + 64px) 0 96px;
+  padding: calc(var(--nav-h) + 48px) 0 96px;
   overflow: hidden;
   position: relative;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: var(--nav-h);
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

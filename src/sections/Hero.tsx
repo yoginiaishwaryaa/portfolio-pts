@@ -3,9 +3,9 @@ import './Hero.css'
 
 const STEPS = [
   { prefix: 'Software', role: 'engineer.' },
-  { prefix: 'Product',  role: 'engineer.' },
-  { prefix: 'Product',  role: 'designer.' },
-  { prefix: 'Product',  role: 'engineer.' },
+  { prefix: 'Product', role: 'engineer.' },
+  { prefix: 'Product', role: 'designer.' },
+  { prefix: 'Product', role: 'engineer.' },
 ]
 
 export default function Hero() {
@@ -97,8 +97,9 @@ export default function Hero() {
             <span className={`hero-prefix ${prefixVisible ? 'in' : 'out'}`}>{STEPS[stepIdx].prefix}</span>
             <span className={`hero-word ${roleVisible ? 'in' : 'out'}`}>{STEPS[stepIdx].role}</span>
           </h1>
+          <br />
           <p className="hero-sub">
-            CS undergrad at Amrita University · Turning ideas into real-world products through embedded systems, AI/ML, software engineering, and thoughtful product experiences. 
+            CS undergrad at Amrita University · Turning ideas into real-world products through embedded systems, AI/ML, software engineering, and thoughtful product experiences.
           </p>
           <div className="hero-actions">
             <button className="hero-btn-primary" onClick={scrollToWork}>
@@ -132,6 +133,6 @@ export default function Hero() {
         <div className="hero-scroll-line" />
         <span>scroll</span>
       </div>
-    </section>
+    </section >
   )
 }
