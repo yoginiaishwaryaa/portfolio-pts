@@ -1,14 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import './Hero.css'
 
-const WORDS = ['builder.', 'designer.', 'engineer.', 'researcher.']
+const STEPS = [
+  { prefix: 'Software', role: 'engineer.' },
+  { prefix: 'Product',  role: 'engineer.' },
+  { prefix: 'Product',  role: 'designer.' },
+  { prefix: 'Product',  role: 'engineer.' },
+]
 
 export default function Hero() {
-  const [wordIdx, setWordIdx] = useState(0)
-  const [visible, setVisible] = useState(true)
+  const [stepIdx, setStepIdx] = useState(0)
+  const [prefixVisible, setPrefixVisible] = useState(true)
+  const [roleVisible, setRoleVisible] = useState(true)
   const [phase, setPhase] = useState<'center' | 'moving' | 'done'>('center')
   const [scrollVisible, setScrollVisible] = useState(false)
+
   const sectionRef = useRef<HTMLElement>(null)
+  const stepRef = useRef(0)
 
   // Name intro animation: center → logo position → rest fades in
   useEffect(() => {
@@ -34,20 +42,42 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [phase])
 
-  // Rotating headline word
+  // Precision single-word rotating loop:
+  // Step 0: Software Engineer -> (Software transitions to Product, Engineer stays)
+  // Step 1: Product Engineer -> (Product stays, Engineer transitions to Designer)
+  // Step 2: Product Designer -> (Product stays, Designer transitions to Engineer)
+  // Step 3: Product Engineer -> (Product transitions to Software, Engineer stays)
   useEffect(() => {
     if (phase !== 'done') return
-    const id = setInterval(() => {
-      setVisible(false)
-      setTimeout(() => { setWordIdx(i => (i + 1) % WORDS.length); setVisible(true) }, 350)
-    }, 2200)
-    return () => clearInterval(id)
+
+    const interval = setInterval(() => {
+      const currIdx = stepRef.current
+      const nextIdx = (currIdx + 1) % STEPS.length
+
+      const currStep = STEPS[currIdx]
+      const nextStep = STEPS[nextIdx]
+
+      const prefixChanged = currStep.prefix !== nextStep.prefix
+      const roleChanged = currStep.role !== nextStep.role
+
+      if (prefixChanged) setPrefixVisible(false)
+      if (roleChanged) setRoleVisible(false)
+
+      setTimeout(() => {
+        stepRef.current = nextIdx
+        setStepIdx(nextIdx)
+        if (prefixChanged) setPrefixVisible(true)
+        if (roleChanged) setRoleVisible(true)
+      }, 350)
+    }, 2400)
+
+    return () => clearInterval(interval)
   }, [phase])
 
   const scrollToWork = () => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section id="hero" className="hero-section">
+    <section id="hero" className="hero-section" ref={sectionRef}>
 
       {/* Decorative grid lines */}
       <div className="hero-grid-lines">
@@ -64,8 +94,8 @@ export default function Hero() {
         <div className="hero-copy">
           <p className="hero-eyebrow">Yogini Aishwaryaa P T S</p>
           <h1 className="hero-headline">
-            Product<br />
-            <span className={`hero-word ${visible ? 'in' : 'out'}`}>{WORDS[wordIdx]}</span>
+            <span className={`hero-prefix ${prefixVisible ? 'in' : 'out'}`}>{STEPS[stepIdx].prefix}</span>
+            <span className={`hero-word ${roleVisible ? 'in' : 'out'}`}>{STEPS[stepIdx].role}</span>
           </h1>
           <p className="hero-sub">
             CS undergrad at Amrita University · Turning ideas into real-world products through embedded systems, AI/ML, software engineering, and thoughtful product experiences. 

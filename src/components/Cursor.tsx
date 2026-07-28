@@ -15,6 +15,12 @@ export default function Cursor() {
         dot.current.style.left = mx + 'px'
         dot.current.style.top = my + 'px'
       }
+
+      // Check if mouse is inside Skills section
+      const target = e.target as HTMLElement | null
+      const inSkills = !!target?.closest('#skills')
+      dot.current?.classList.toggle('cursor-white', inSkills)
+      ring.current?.classList.toggle('cursor-white', inSkills)
     }
 
     const animate = () => {
